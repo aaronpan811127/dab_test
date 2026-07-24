@@ -15,6 +15,10 @@ bundle:
 include:
   - resources/*.yml
 
+sync:
+  exclude:
+    - "**/*.geniespace.json"
+
 variables:
   warehouse_id:
     description: SQL warehouse ID used by the Genie Space(s)
@@ -22,10 +26,11 @@ variables:
 
 targets:
   dev:
-    mode: development   # prefixes names with [dev <user>], disables schedules
+    # mode: development   # prefixes names with [dev <user>], disables schedules
     default: true
     workspace:
       host: https://e2-demo-field-eng.cloud.databricks.com
+      root_path: /Workspace/Users/aaron.pan@databricks.com/dab_test_2/
     variables:
       warehouse_id: "3c0d4adacd8dc327"
 
@@ -39,16 +44,3 @@ targets:
     variables:
       warehouse_id: "3c0d4adacd8dc327"   # TODO: replace with production warehouse ID
 
-resources:
-  genie_spaces:
-    nyc_taxi_trip_analysis:
-      title: "NYC Taxi Trip Analysis aaron test"
-      description: "hello"
-      warehouse_id: ${var.warehouse_id}
-      # file_path points to the serialized space definition (inner JSON, NOT the migration wrapper).
-      # The file must contain: { "version": 2, "data_sources": { "tables": [...] }, ... }
-      file_path: ./nyc_taxi_trip_analysis_bundle.json
-      parent_path: /Users/aaron.pan@databricks.com/resources/genie_spaces_2
-      permissions:
-        - level: CAN_VIEW
-          user_name: aaron.pan@databricks.com
