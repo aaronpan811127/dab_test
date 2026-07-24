@@ -1,0 +1,10 @@
+{
+  "data_sources": {
+    "tables": [
+      {
+        "identifier": "aarontest.bronze_1.managed_table_2"
+      }
+    ]
+  },
+  "version": 2
+}

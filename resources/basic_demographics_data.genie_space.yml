@@ -4,4 +4,4 @@ resources:
       title: "Basic Demographics Data"
       warehouse_id: 862f1d757f0424f7
       file_path: ../src/basic_demographics_data.genie_space.json
-      parent_path: ${workspace.root_path}/src
+      parent_path: /Workspace/Users/${workspace.current_user.userName}/dab_test_2/src

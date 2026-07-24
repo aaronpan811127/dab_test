@@ -30,7 +30,6 @@ targets:
     default: true
     workspace:
       host: https://e2-demo-field-eng.cloud.databricks.com
-      root_path: /Workspace/Users/aaron.pan@databricks.com/dab_test_2/
     variables:
       warehouse_id: "3c0d4adacd8dc327"
 
