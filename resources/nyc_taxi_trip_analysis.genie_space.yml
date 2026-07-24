@@ -1,0 +1,7 @@
+resources:
+  genie_spaces:
+    nyc_taxi_trip_analysis:
+      title: "NYC Taxi Trip Analysis"
+      warehouse_id: 3c0d4adacd8dc327
+      file_path: ../src/nyc_taxi_trip_analysis.geniespace.json
+      parent_path: /Workspace/Users/aaron.pan@databricks.com/resources/genie_spaces

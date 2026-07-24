@@ -1,0 +1,51 @@
+# Declarative Automation Bundle — Genie Space Deployment
+# Requirements : Databricks CLI v1.3.0+  |  engine: direct is mandatory for genie_spaces
+# Validate     : databricks bundle validate
+# Deploy (dev) : databricks bundle deploy --target dev
+# Deploy (prod): databricks bundle deploy --target prod
+#
+# File layout (keep in the same directory):
+#   databricks.yml                              — this file
+#   nyc_taxi_trip_analysis.geniespace.json      — serialized space definition (inner format)
+
+bundle:
+  name: genie-space-deploy
+  engine: direct   # required for genie_spaces resources (direct deployment engine)
+
+variables:
+  warehouse_id:
+    description: SQL warehouse ID used by the Genie Space(s)
+    default: "3c0d4adacd8dc327"
+
+targets:
+  dev:
+    mode: development   # prefixes names with [dev <user>], disables schedules
+    default: true
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+    variables:
+      warehouse_id: "3c0d4adacd8dc327"
+
+  prod:
+    mode: production
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+      root_path: /Shared/.bundle/prod/${bundle.name}
+    run_as:
+      user_name: aaron.pan@databricks.com
+    variables:
+      warehouse_id: "3c0d4adacd8dc327"   # TODO: replace with production warehouse ID
+
+resources:
+  genie_spaces:
+    nyc_taxi_trip_analysis:
+      title: "NYC Taxi Trip Analysis aaron test"
+      description: "hello"
+      warehouse_id: ${var.warehouse_id}
+      # file_path points to the serialized space definition (inner JSON, NOT the migration wrapper).
+      # The file must contain: { "version": 2, "data_sources": { "tables": [...] }, ... }
+      file_path: ./nyc_taxi_trip_analysis_bundle.json
+      parent_path: /Users/aaron.pan@databricks.com/resources/genie_spaces_2
+      permissions:
+        - level: CAN_VIEW
+          user_name: aaron.pan@databricks.com
