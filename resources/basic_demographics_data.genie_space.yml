@@ -1,0 +1,7 @@
+resources:
+  genie_spaces:
+    basic_demographics_data:
+      title: "Basic Demographics Data"
+      warehouse_id: 862f1d757f0424f7
+      file_path: ../src/basic_demographics_data.geniespace.json
+      parent_path: /Workspace/Users/aaron.pan@databricks.com/dab_test/src
